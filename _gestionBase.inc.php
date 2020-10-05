@@ -43,7 +43,7 @@ function obtenirReqEtablissementsOffrantChambres()
 
 function obtenirReqEtablissementsAyantChambresAttribuées()
 {
-	$req= "SELECT  DISTINCT id, nom, nombreChambresOffertes FROM Etablissement, 
+	$req= "SELECT  id, nom, nombreChambresOffertes FROM Etablissement, 
          Attribution WHERE id = idEtab ORDER BY id";
 
    return $req;
@@ -64,7 +64,7 @@ function obtenirDetailEtablissement($bdd, $id)
 function supprimerEtablissement($bdd, $id)
 {
    $req="delete from Etablissement where id='$id'";
-   $bdd->query($req);
+   mysql_query($req, $bdd);
 }
  
 function modifierEtablissement($bdd, $id, $nom, $adresseRue, $codePostal, 
@@ -234,8 +234,13 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
 {
    $req="select count(*) as nombreAttribGroupe from Attribution where idEtab=
         '$idEtab' and idGroupe='$idGroupe'";
+<<<<<<< HEAD
    $rsAttrib=$bdd->query($req);
    $lgAttrib=$rsAttrib->fetchAll(PDO::FETCH_ASSOC);
+=======
+   $rsAttrib=mysql_query($req, $bdd);
+   $lgAttrib=mysql_fetch_array($rsAttrib);
+>>>>>>> 2c6f971750126b0612dd3b924ac5ba402d6c1f4e
    if ($nbChambres==0)
       $req="delete from Attribution where idEtab='$idEtab' and idGroupe='$idGroupe'";
    else
@@ -246,7 +251,7 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
       else
          $req="insert into Attribution values('$idEtab','$idGroupe', $nbChambres)";
    }
-   $bdd->query($req);
+   mysql_query($req, $bdd);
 }
 
 // Retourne la requête permettant d'obtenir les id et noms des groupes affectés
