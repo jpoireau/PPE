@@ -1,5 +1,5 @@
 <?php
-require("connect.php");
+
 include("_debut.inc.php");
 include("_gestionBase.inc.php"); 
 include("_controlesEtGestionErreurs.inc.php");
@@ -18,8 +18,8 @@ if (!$bdd)
    ajouterErreur("La base de données festival est inexistante ou non accessible");
    afficherErreurs();
    exit();
-}
-*/
+}*/
+
 
 
 // CONSULTER LES ATTRIBUTIONS DE TOUS LES ÉTABLISSEMENTS
@@ -67,7 +67,7 @@ $lgEtab = $rsEtab->fetch();
       // AFFICHAGE DE LA 2ÈME LIGNE D'EN-TÊTE 
       echo "
       <tr class='ligneTabQuad'>
-         <td width='65%' align='left'><i><strong>Nom equipe</strong></i></td>
+         <td width='65%' align='left'><i><strong>Nom équipe</strong></i></td>
          <td width='35%' align='left'><i><strong>Chambres attribuées</strong></i>
          </td>
       </tr>";
@@ -93,12 +93,12 @@ $lgGroupe = $rsGroupe->fetch();
          echo "
             <td width='35%' align='left'>$nbOccupGroupe</td>
          </tr>";
-      $lgGroupe = $rsGroupe->fetch();
+$lgGroupe = $rsGroupe->fetch();
       } // Fin de la boucle sur les groupes
       
       echo "
       </table><br>";
-     $lgEtab = $rsEtab->fetch();
+	  $lgEtab = $rsEtab->fetch();
 
    } // Fin de la boucle sur les établissements
 }
