@@ -50,6 +50,7 @@ $lgEtab = $rsEtab->fetch();
       echo "
       <table width='75%' cellspacing='0' cellpadding='0' align='center' 
       class='tabQuadrille'>";
+
       
       $nbOffre=$lgEtab["nombreChambresOffertes"];
       $nbOccup=obtenirNbOccup($bdd, $idEtab);
@@ -59,7 +60,7 @@ $lgEtab = $rsEtab->fetch();
       // AFFICHAGE DE LA 1ÈRE LIGNE D'EN-TÊTE 
       echo "
       <tr class='enTeteTabQuad'>
-         <td colspan='2' align='left'><strong>$nomEtab</strong>&nbsp;
+         <td colspan='3' align='left'><strong>$nomEtab</strong>&nbsp;
          (Offre : $nbOffre&nbsp;&nbsp;Disponibilités : $nbChLib)
          </td>
       </tr>";
@@ -67,8 +68,9 @@ $lgEtab = $rsEtab->fetch();
       // AFFICHAGE DE LA 2ÈME LIGNE D'EN-TÊTE 
       echo "
       <tr class='ligneTabQuad'>
-         <td width='65%' align='left'><i><strong>Nom équipe</strong></i></td>
-         <td width='35%' align='left'><i><strong>Chambres attribuées</strong></i>
+         <td width='45%' align='left'><i><strong>Nom équipe</strong></i></td>
+         <td width='35%' align='left'><i><strong>Nom pays</strong></i></td>
+         <td width='20%' align='left'><i><strong>Chambres attribuées</strong></i>
          </td>
       </tr>";
         
@@ -84,14 +86,16 @@ $lgGroupe = $rsGroupe->fetch();
       {
          $idGroupe=$lgGroupe['id'];
          $nomGroupe=$lgGroupe['nom'];
+         $paysGroupe=$lgGroupe['nomPays'];
          echo "
          <tr class='ligneTabQuad'>
-            <td width='65%' align='left'>$nomGroupe</td>";
+            <td width='45%' align='left'>$nomGroupe</td>
+            <td width='35%' align='left'>$paysGroupe</td>";
          // On recherche si des chambres ont déjà été attribuées à ce groupe
          // dans l'établissement
          $nbOccupGroupe=obtenirNbOccupGroupe($bdd, $idEtab, $idGroupe);
          echo "
-            <td width='35%' align='left'>$nbOccupGroupe</td>
+            <td width='20%' align='left'>$nbOccupGroupe</td>
          </tr>";
 $lgGroupe = $rsGroupe->fetch();
       } // Fin de la boucle sur les groupes

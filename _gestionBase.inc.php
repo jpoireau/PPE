@@ -8,7 +8,6 @@ function connect()
 	$pdo = new PDO('mysql:host=localhost;dbname=festival;charset=utf8', 'root', '');
     $pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     return $pdo;
-
 }
 
 /*
@@ -174,7 +173,7 @@ function estModifOffreCorrecte($bdd, $idEtab, $nombreChambres)
 
 function obtenirReqIdNomGroupesAHeberger()
 {
-   $req="select id, nom from Groupe where hebergement='O' order by id";
+   $req="select id, nom, nomPays from Groupe where hebergement='O' order by id";
    return $req;
 }
 
@@ -254,7 +253,7 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
 // dans l'établissement transmis
 function obtenirReqGroupesEtab($id)
 {
-   $req="select distinct id, nom from Groupe, Attribution where 
+   $req="select distinct id, nom, nomPays from Groupe, Attribution where 
         Attribution.idGroupe=Groupe.id and idEtab='$id'";
    return $req;
 }

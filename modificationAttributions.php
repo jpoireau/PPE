@@ -57,7 +57,7 @@ class='tabQuadrille'>";
    <tr class='enTeteTabQuad'>
       <td colspan=$nb><strong>Attributions</strong></td>
    </tr>";
-      
+
    // AFFICHAGE DE LA 2ÈME LIGNE D'EN-TÊTE (ÉTABLISSEMENTS)
    echo "
    <tr class='ligneTabQuad'>
@@ -106,9 +106,10 @@ class='tabQuadrille'>";
    {
       $idGroupe=$lgGroupe['id'];
       $nom=$lgGroupe['nom'];
+      $pays=$lgGroupe['nomPays'];
       echo "
       <tr class='ligneTabQuad'>
-         <td width='25%'>$nom</td>";
+         <td width='25%'>$nom, $pays</td>";
       $req=obtenirReqEtablissementsOffrantChambres();
 	  
 	  $rsEtab = $bdd->prepare($req);
