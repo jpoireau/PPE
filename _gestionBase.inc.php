@@ -65,7 +65,7 @@ function obtenirDetailEtablissement($bdd, $id)
 function supprimerEtablissement($bdd, $id)
 {
    $req="delete from Etablissement where id='$id'";
-   mysql_query($req, $bdd);
+   $bdd->query($req);
 }
  
 function modifierEtablissement($bdd, $id, $nom, $adresseRue, $codePostal, 
@@ -235,8 +235,8 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
 {
    $req="select count(*) as nombreAttribGroupe from Attribution where idEtab=
         '$idEtab' and idGroupe='$idGroupe'";
-   $rsAttrib=mysqli_query($req, $bdd);
-   $lgAttrib=mysql_fetch_array($rsAttrib);
+   $rsAttrib=$bdd->query($req);
+   $lgAttrib=
    if ($nbChambres==0)
       $req="delete from Attribution where idEtab='$idEtab' and idGroupe='$idGroupe'";
    else
@@ -247,7 +247,7 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
       else
          $req="insert into Attribution values('$idEtab','$idGroupe', $nbChambres)";
    }
-   mysqli_query($bdd, $req);
+   $bdd->query($req);
 }
 
 // Retourne la requête permettant d'obtenir les id et noms des groupes affectés
