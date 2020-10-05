@@ -107,15 +107,15 @@ function creerEtablissement($bdd, $id, $nom, $adresseRue, $codePostal,
          '$civiliteResponsable', '$nomResponsable', '$prenomResponsable',
          '$nombreChambresOffertes')";
    
-   mysql_query($req, $bdd);
+   $bdd->query($req);
 }
 
 
 function estUnIdEtablissement($bdd, $id)
 {
    $req="select * from Etablissement where id='$id'";
-   $rsEtab=mysql_query($req, $bdd);
-   return mysql_fetch_array($rsEtab);
+   $rsEtab=$bdd->query($req);
+   return $rsEtab->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function estUnNomEtablissement($bdd, $mode, $id, $nom)
@@ -132,8 +132,8 @@ function estUnNomEtablissement($bdd, $mode, $id, $nom)
    {
       $req="select * from Etablissement where nom='$nom' and id!='$id'";
    }
-   $rsEtab=mysql_query($req, $bdd);
-   return mysql_fetch_array($rsEtab);
+   $rsEtab=$bdd->query($req);
+   return $rsEtab->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function obtenirNbEtab($bdd)
@@ -236,7 +236,7 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
    $req="select count(*) as nombreAttribGroupe from Attribution where idEtab=
         '$idEtab' and idGroupe='$idGroupe'";
    $rsAttrib=$bdd->query($req);
-   $lgAttrib=
+   $lgAttrib=$rsAttrib->fetchAll(PDO::FETCH_ASSOC);
    if ($nbChambres==0)
       $req="delete from Attribution where idEtab='$idEtab' and idGroupe='$idGroupe'";
    else
