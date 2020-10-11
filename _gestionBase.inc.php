@@ -43,7 +43,7 @@ function obtenirReqEtablissementsOffrantChambres()
 
 function obtenirReqEtablissementsAyantChambresAttribuées()
 {
-	$req= "SELECT  id, nom, nombreChambresOffertes FROM Etablissement, 
+	$req= "SELECT  distinct id, nom, nombreChambresOffertes FROM Etablissement, 
          Attribution WHERE id = idEtab ORDER BY id";
 
    return $req;
@@ -234,13 +234,11 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
 {
    $req="select count(*) as nombreAttribGroupe from Attribution where idEtab=
         '$idEtab' and idGroupe='$idGroupe'";
-<<<<<<< HEAD
+
    $rsAttrib=$bdd->query($req);
    $lgAttrib=$rsAttrib->fetchAll(PDO::FETCH_ASSOC);
-=======
-   $rsAttrib=mysql_query($req, $bdd);
-   $lgAttrib=mysql_fetch_array($rsAttrib);
->>>>>>> 2c6f971750126b0612dd3b924ac5ba402d6c1f4e
+
+
    if ($nbChambres==0)
       $req="delete from Attribution where idEtab='$idEtab' and idGroupe='$idGroupe'";
    else
@@ -251,7 +249,7 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
       else
          $req="insert into Attribution values('$idEtab','$idGroupe', $nbChambres)";
    }
-   mysql_query($req, $bdd);
+   $bdd->query($req);
 }
 
 // Retourne la requête permettant d'obtenir les id et noms des groupes affectés
