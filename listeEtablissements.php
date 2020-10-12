@@ -38,31 +38,61 @@ class='tabNonQuadrille'>
       
       echo "
 		<tr class='ligneTabNonQuad'>
-         <td width='52%'>$nom</td>
+         <td width='40%'>$nom</td>
          
-         <td width='16%' align='center'> 
+         <td width='15%' align='center'> 
          <a href='detailEtablissement.php?id=$id'>
          Voir détail</a></td>
          
-         <td width='16%' align='center'> 
+         <td width='15%' align='center'> 
          <a href='modificationEtablissement.php?action=demanderModifEtab&amp;id=$id'>
          Modifier</a></td>";
       	
          // S'il existe déjà des attributions pour l'établissement, il faudra
          // d'abord les supprimer avant de pouvoir supprimer l'établissement
+
 			if (!existeAttributionsEtab($bdd, $id))
 			{
+            echo
+               "<td width='15%'>VIDE </td>";
             echo "
-            <td width='16%' align='center'> 
+            <td width='15%' align='center'> 
             <a href='suppressionEtablissement.php?action=demanderSupprEtab&amp;id=$id'>
             Supprimer</a></td>";
+
+             
          }
          else
          {
+            $nbAttribution = complet($bdd,$id);
+            $nbOccupe = obtenirNbOccup($bdd, $id);
+            echo
+               "<td width='15%'> $nbOccupe / $nbAttribution </td>";
+            /*$nbattributionlibre= 0;*/
+
             echo "
-            <td width='16%'>&nbsp; </td>";          
-			}
-			echo "
+            <td width='15%'>&nbsp </td>";
+
+         }         
+            /*if($nbAttribution==$nbOccupe)
+            {
+
+               echo "
+               <td width='15%'>COMPLET </td>";
+            }*/
+            /*else if ($nbOccupe==0) 
+            {
+               echo
+               "<td width='15%'>VIDE </td>";
+            }*/
+            /*else
+            {
+               echo
+               "<td width='15%'> $nbOccupe / $nbAttribution </td>";
+            }*/
+           
+			
+         echo"
       </tr>";
 			$lgEtab = $rsEtab->fetch();
    }   

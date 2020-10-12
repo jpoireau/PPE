@@ -86,7 +86,7 @@ function modifierEtablissement($bdd, $id, $nom, $adresseRue, $codePostal,
          '$nomResponsable',prenomResponsable='$prenomResponsable',
          nombreChambresOffertes='$nombreChambresOffertes' where id='$id'";
    
-   mysql_query($req, $bdd);
+   $bdd->exec($req);
 }
 
 function creerEtablissement($bdd, $id, $nom, $adresseRue, $codePostal, 
@@ -199,11 +199,15 @@ function obtenirNomGroupe($bdd, $id)
 // Teste la présence d'attributions pour l'établissement transmis    
 function existeAttributionsEtab($bdd, $id)
 {
-   $req="select * From Attribution where idEtab='$id'";
+   $req="select count(*) as gg From Attribution where idEtab='$id'";
+   $rsAtt=$bdd->query($req);
+   $lgAtt=$rsAtt->fetchColumn();
+   return $lgAtt > 0;
+  /* $req="select * From Attribution where idEtab='$id'";
    $rsAtt=$bdd->prepare($req);
    $rsAtt->execute();
    $rsAttrib = $rsAtt->fetchAll();
-
+*/
 
    return ($rsAttrib);
 }
@@ -278,5 +282,12 @@ $rsAttribGroupe = $bdd->prepare($req);
       return 0;
 }
 
+function complet($bdd, $idEtab)
+{
+  $req="select nombreChambresOffertes FROM Etablissement WHERE id='$idEtab'";
+  $rsComplet=$bdd->query($req);
+  $lgComplet=$rsComplet->fetch();
+  return $lgComplet['nombreChambresOffertes'];
+}
 ?>
 
