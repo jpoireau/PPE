@@ -64,7 +64,7 @@ function obtenirDetailEtablissement($bdd, $id)
 function supprimerEtablissement($bdd, $id)
 {
    $req="delete from Etablissement where id='$id'";
-   mysql_query($req, $bdd);
+   $bdd->exec($req);
 }
  
 function modifierEtablissement($bdd, $id, $nom, $adresseRue, $codePostal, 
@@ -236,7 +236,7 @@ function modifierAttribChamb($bdd, $idEtab, $idGroupe, $nbChambres)
         '$idEtab' and idGroupe='$idGroupe'";
 
    $rsAttrib=$bdd->query($req);
-   $lgAttrib=$rsAttrib->fetchAll(PDO::FETCH_ASSOC);
+   $lgAttrib=$rsAttrib->fetch(PDO::FETCH_ASSOC);
 
 
    if ($nbChambres==0)
